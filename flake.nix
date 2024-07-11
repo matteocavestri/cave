@@ -13,7 +13,7 @@
     {
       packages.${system}.cave = pkgs.stdenv.mkDerivation {
         pname = "cave";
-        version = "0.0.1";
+        version = "0.0.2";
         src = ./.;
         buildInputs = [ pkgs.go ];
         

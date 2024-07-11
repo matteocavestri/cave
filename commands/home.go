@@ -18,3 +18,16 @@ func HomeSwitch() error {
 
 	return nil
 }
+
+// HomeSwitch esegue il comando nh home build.
+func HomeBuild() error {
+	cmd := exec.Command("sh", "-c", "nh home build")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	if err != nil {
+		return fmt.Errorf("failed to execute home build: %w", err)
+	}
+
+	return nil
+}

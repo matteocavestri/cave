@@ -44,6 +44,26 @@ func main() {
 			if err != nil {
 				log.Fatalf("System switch failed: %v", err)
 			}
+		case "clean":
+			err := commands.SystemClean()
+			if err != nil {
+				log.Fatalf("System clean failed: %v", err)
+			}
+		case "test":
+			err := commands.SystemTest()
+			if err != nil {
+				log.Fatalf("System test failed: %v", err)
+			}
+		case "build":
+			err := commands.SystemBuild()
+			if err != nil {
+				log.Fatalf("System build failed: %v", err)
+			}
+		case "boot":
+			err := commands.SystemBoot()
+			if err != nil {
+				log.Fatalf("System boot failed: %v", err)
+			}
 		default:
 			fmt.Printf("Unknown system subcommand: %s\n", subcommand)
 			os.Exit(1)
@@ -63,6 +83,11 @@ func main() {
 			err := commands.HomeSwitch()
 			if err != nil {
 				log.Fatalf("Home switch failed: %v", err)
+			}
+		case "build":
+			err := commands.HomeBuild()
+			if err != nil {
+				log.Fatalf("Home build failed: %v", err)
 			}
 		default:
 			fmt.Printf("Unknown home subcommand: %s\n", subcommand)
@@ -86,13 +111,17 @@ func printHelp(command string) {
 	case "system":
 		fmt.Println("Usage: cave system <subcommand>")
 		fmt.Println("Subcommands:")
-		fmt.Println("  switch      Switch the system")
+		fmt.Println("  switch      Switch the system configuration")
+		fmt.Println("  clean       Clean the nix store")
+		fmt.Println("  test        Test the system configuration")
+		fmt.Println("  build       Build the system configuration")
+		fmt.Println("  boot        Boot the system configuration")
 	case "home":
 		fmt.Println("Usage: cave home <subcommand>")
 		fmt.Println("Subcommands:")
-		fmt.Println("  switch      Switch the home")
+		fmt.Println("  switch      Switch the home configuration")
+		fmt.Println("  build       Build the home configuration")
 	default:
 		fmt.Println("Unknown help topic.")
 	}
 }
-
