@@ -6,13 +6,6 @@ import (
 	"os/exec"
 )
 
-// CommandRunner is a type that represents a function that runs commands.
-type CommandRunner func(name string, arg ...string) *exec.Cmd
-
-// commandRunner is the actual function that runs commands.
-// It can be overridden in tests.
-var commandRunner CommandRunner = exec.Command
-
 // executeCommand runs a system command with optional arguments.
 func executeCommand(baseCmd string, args ...string) error {
 	cmdStr := baseCmd
@@ -25,7 +18,7 @@ func executeCommand(baseCmd string, args ...string) error {
 		}
 	}
 
-	cmd := commandRunner("sh", "-c", cmdStr)
+	cmd := exec.Command("sh", "-c", cmdStr)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
@@ -59,7 +52,7 @@ func SystemBoot(args ...string) error {
 // SystemClean runs the command sudo nix-collect-garbage -d without additional options.
 func SystemClean() error {
 	// In this case, `--impure` is not applicable, so we directly use the command.
-	cmd := commandRunner("sh", "-c", "sudo nix-collect-garbage -d")
+	cmd := exec.Command("sh", "-c", "sudo nix-collect-garbage -d")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
