@@ -14,7 +14,7 @@
       in {
         cave = pkgs.stdenv.mkDerivation {
           pname = "cave";
-          version = "0.0.3";
+          version = "0.0.4";
           src = ./.;
           buildInputs = [pkgs.go];
 
